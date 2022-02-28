@@ -6,6 +6,7 @@ use Adapter\Entity\User;
 use Adapter\Notification\EmailNotification;
 use Adapter\Notification\PhoneNotification;
 use Adapter\Service\PhoneApi;
+use Composite\Html\Div;
 use Composite\Html\Form;
 use Composite\Html\TextElement;
 use Composite\Html\TextInputElement;
@@ -24,4 +25,6 @@ $form->addElement(new TextInputElement());
 $form->addElement(new TextElement('Password:'));
 $form->addElement(new TextInputElement());
 
-var_dump($form->render());
+$div = new Div();
+$div->addElement($form);
+var_dump($div->render());

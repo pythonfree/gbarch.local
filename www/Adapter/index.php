@@ -8,7 +8,7 @@ use Adapter\Notification\PhoneNotification;
 use Adapter\Service\PhoneApi;
 
 
-spl_autoload_register(function ($className){
+spl_autoload_register(function ($className) {
     $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
     $className = preg_replace('/^Adapter/', '', $className);
     require_once __DIR__ . $className . '.php';

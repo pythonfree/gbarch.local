@@ -2,7 +2,11 @@
 
 namespace AbstractFactory\Service;
 
+use AbstractFactory\Contract\OrderRepositoryInterface;
+use AbstractFactory\Contract\RepositoryFactoryInterface;
 use AbstractFactory\Contract\UserRepositoryInterface;
+use AbstractFactory\Entity\Order;
+use AbstractFactory\Entity\User;
 
 /**
  * Class Service Класс-сервис (в данном случае он один для примера), будет
@@ -25,5 +29,44 @@ class Service
      */
     private $userRepository;
 
+    /**
+     * @var OrderRepositoryInterface
+     */
+    private $orderRepository;
+
+    /**
+     * OrderService constructor. В конструктор передается фабрика, которая может
+     * создать любой репозиторий, который нам нужен. Данная фабрика уже
+     * знает, с каким хранилищем должны работать репозитории, которые она будет
+     * создавать. При вызове данного конструктора передается фабрика, которая
+     * создаст репозиторий определенного типа, которые работают с определенным хранилищем.
+     * @param RepositoryFactoryInterface $repositoryFactory
+     */
+    public function __construct(RepositoryFactoryInterface $repositoryFactory)
+    {
+        $this->userRepository = $repositoryFactory->createUserRepository();
+        $this->orderRepository = $repositoryFactory->createOrderRepository();
+    }
+
+    /**
+     * Действия для добавления пользователя (просто пример использования).
+     */
+    public function addUser(): void
+    {
+        // С помощью другой фабрики можно собрать пользователя, что было
+        // пропущено для упрощения.
+        $user = new User();
+        // Добавляем пользователя в хранилище.
+        $this->userRepository->add($user);
+    }
+
+    public function addOrder(): void
+    {
+        // С помощью другой фабрики можно собрать заказ, что было
+        // пропущено для упрощения.
+        $order = new Order();
+        // Добавляем заказ в хранилище.
+        $this->orderRepository->add($order);
+    }
 
 }

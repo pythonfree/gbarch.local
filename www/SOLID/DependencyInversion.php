@@ -31,7 +31,7 @@ class UserRepository
     /**
      * @param DbStorage $storage
      */
-    public function __construct(DbStorage $storage) // зависимость от DbStorage
+    public function __construct(Storage $storage)
     {
         $this->storage = $storage;
     }

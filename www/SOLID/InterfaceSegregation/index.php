@@ -6,7 +6,7 @@ interface CommentManagerInterface
     public function deleteComment();
 }
 
-class User implements CommentManagerInterface
+class User implements WriteCommentInterface, DeleteCommentInterface
 {
     public function writeComment()
     {
@@ -20,16 +20,28 @@ class User implements CommentManagerInterface
 
 }
 
-class Guest implements CommentManagerInterface
+class Guest implements WriteCommentInterface
 {
-    public function deleteComment()
-    {
-        throw new LogicException('Guest can\'t delete comment!');
-    }
-
     public function writeComment()
     {
         // TODO: Implement writeComment() method.
     }
-
 }
+
+interface WriteCommentInterface
+{
+    public function writeComment();
+}
+
+interface DeleteCommentInterface
+{
+    public function deleteComment();
+}
+
+
+$user = new User();
+$user->writeComment();
+$user->deleteComment();
+
+$guest = new Guest();
+$guest->writeComment();

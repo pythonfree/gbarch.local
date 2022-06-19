@@ -1,15 +1,11 @@
 <?php
 
-class User
+class User extends BaseUser implements HasStatusInterface
 {
     /**
      * @var string
      */
-    private $name;
-    /**
-     * @var string
-     */
-    private $status;
+    private string $status;
 
     /**
      * @param string $name
@@ -17,24 +13,8 @@ class User
      */
     public function __construct(string $name, string $status)
     {
-        $this->name = $name;
+        parent::__construct($name);
         $this->status = $status;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
     }
 
     /**
@@ -64,19 +44,61 @@ class User
     }
 }
 
-class Guest extends User
+class Guest extends BaseUser
 {
     public function __construct()
     {
-        parent::__construct('Guest', 'Guest');
+        parent::__construct('Guest');
+    }
+}
+
+class BaseUser
+{
+    /**
+     * @var string
+     */
+    private string $name;
+
+    /**
+     * @param string $name
+     */
+    public function __construct(string $name)
+    {
+        $this->name = $name;
     }
 
-    public function changeStatus(string $status)
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
-        throw new LogicException("Can't change status of guest.");
+        return $this->name;
     }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+}
+
+interface HasStatusInterface
+{
+    /**
+     * @return mixed
+     */
+    public function getStatus();
+
+    /**
+     * @param string $status
+     * @return mixed
+     */
+    public function changeStatus(string $status);
 }
 
 $user = new User('Ivan', 'auth');
 $guest = new Guest();
-$guest->changeStatus('not guest');
+$baseUser = new BaseUser('Ivan'); // то же работает - L

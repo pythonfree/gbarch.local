@@ -3,6 +3,11 @@
 class Order
 {
     /**
+     * @var DiscountCalculator
+     */
+    private $calculator;
+
+    /**
      * @var float
      */
     private $sum;
@@ -10,43 +15,125 @@ class Order
     /**
      * Order constructor
      * @param float $sum
+     * @param DiscountCalculator $calculator
      */
-    public function __construct(float $sum)
+    public function __construct(float $sum, DiscountCalculator $calculator)
     {
         $this->sum = $sum;
+        $this->calculator = $calculator;
+    }
+
+    /**
+     * @return DiscountCalculator
+     */
+    public function getCalculator(): DiscountCalculator
+    {
+        return $this->calculator;
     }
 
     /**
      * @return float
      */
-    public function getMinimalSumWithDiscount(): float
+    public function getSum(): float
     {
-        // для всех
-        $discount = 10;
-
-        // на хеллуин
-        if (date('d.m') == '31.10') {
-            $discount = 15;
-        }
-
-        if (date('d.m') == '01.01') {
-            $discount = 15;
-        }
-
-        if (date('d.m') == '01.02') {
-            $discount = 18;
-        }
-
-        if (date('d.m') == '31.10') {
-            $discount = 20;
-        }
-
-        return $this->sum - $this->sum / 100 * $discount;
-
+        return $this->sum;
     }
 
 }
 
-$order = new Order(100);
-echo $order->getMinimalSumWithDiscount();
+
+class DiscountCalculator
+{
+    /**
+     * @var DiscountInterface[]
+     */
+    private $discounts;
+
+    /**
+     * @param DiscountInterface[] $discounts
+     */
+    public function __construct(...$discounts)
+    {
+        $this->discounts = $discounts;
+    }
+
+    /**
+     * @param float $sum
+     * @return float
+     */
+    public function getMinimalSumWithDiscount(float $sum): float
+    {
+        // для всех
+        $minSum = $sum;
+
+        foreach ($this->discounts as $discount) {
+            $sumWithDiscount = $discount->getMinimalSumWithDiscount($sum);
+            if ($sumWithDiscount < $minSum) {
+                $minSum = $sumWithDiscount;
+            }
+        }
+
+        return $minSum;
+    }
+}
+
+/**
+ * Interface DiscountInterface
+ */
+interface DiscountInterface
+{
+
+    /**
+     * @param float $sum
+     * @return float
+     */
+    public function getMinimalSumWithDiscount(float $sum): float;
+}
+
+class CommonDiscount implements DiscountInterface
+{
+    const DISCOUNT = 10;
+
+    /**
+     * @param float $sum
+     * @return float
+     */
+    public function getMinimalSumWithDiscount(float $sum): float
+    {
+        return $sum - $sum / 100 * static::DISCOUNT;
+    }
+}
+
+class NewYearDiscount implements DiscountInterface
+{
+    const DISCOUNT = 20;
+
+    /**
+     * @param float $sum
+     * @return float
+     */
+    public function getMinimalSumWithDiscount(float $sum): float
+    {
+        if (date('d.m') == '31.12') {
+            return $sum - $sum / 100 * static::DISCOUNT;
+        }
+        return $sum;
+    }
+}
+
+
+/**
+ * @return DiscountInterface[]
+ */
+function getAllDiscounts()
+{
+    return [
+        new CommonDiscount(),
+        new NewYearDiscount(),
+    ];
+}
+
+$order = new Order(100, new DiscountCalculator());
+$calculator = new DiscountCalculator(getAllDiscounts());
+echo $order->getCalculator()->getMinimalSumWithDiscount($order->getSum());
 

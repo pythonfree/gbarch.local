@@ -125,7 +125,7 @@ class NewYearDiscount implements DiscountInterface
 /**
  * @return DiscountInterface[]
  */
-function getAllDiscounts()
+function getAllDiscounts(): array
 {
     return [
         new CommonDiscount(),
@@ -133,7 +133,7 @@ function getAllDiscounts()
     ];
 }
 
-$order = new Order(100, new DiscountCalculator());
-$calculator = new DiscountCalculator(getAllDiscounts());
-echo $order->getCalculator()->getMinimalSumWithDiscount($order->getSum());
+$calculator = new DiscountCalculator(...getAllDiscounts());
+$order = new Order(100, $calculator);
+echo $order->getCalculator()->getMinimalSumWithDiscount($order->getSum()) . PHP_EOL;
 

@@ -67,7 +67,7 @@ class DiscountCalculator
         $minSum = $sum;
 
         foreach ($this->discounts as $discount) {
-            $sumWithDiscount = $discount->getMinimalSumWithDiscount($sum);
+            $sumWithDiscount = $discount->getSumWithDiscount($sum);
             if ($sumWithDiscount < $minSum) {
                 $minSum = $sumWithDiscount;
             }
@@ -87,7 +87,7 @@ interface DiscountInterface
      * @param float $sum
      * @return float
      */
-    public function getMinimalSumWithDiscount(float $sum): float;
+    public function getSumWithDiscount(float $sum): float;
 }
 
 class CommonDiscount implements DiscountInterface
@@ -98,7 +98,7 @@ class CommonDiscount implements DiscountInterface
      * @param float $sum
      * @return float
      */
-    public function getMinimalSumWithDiscount(float $sum): float
+    public function getSumWithDiscount(float $sum): float
     {
         return $sum - $sum / 100 * static::DISCOUNT;
     }
@@ -112,7 +112,7 @@ class NewYearDiscount implements DiscountInterface
      * @param float $sum
      * @return float
      */
-    public function getMinimalSumWithDiscount(float $sum): float
+    public function getSumWithDiscount(float $sum): float
     {
         if (date('d.m') == '31.12') {
             return $sum - $sum / 100 * static::DISCOUNT;

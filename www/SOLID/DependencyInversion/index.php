@@ -31,12 +31,12 @@ class XmlStorage implements Storage
 class UserRepository
 {
     /**
-     * @var DbStorage
+     * @var Storage
      */
-    private DbStorage $storage;
+    private Storage $storage;
 
     /**
-     * @param DbStorage $storage
+     * @param Storage $storage
      */
     public function __construct(Storage $storage) // зависимость от интерфейса Storage, не от объекта DbStorage
     {

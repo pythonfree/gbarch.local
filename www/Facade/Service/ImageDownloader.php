@@ -7,17 +7,11 @@ namespace Facade\Service;
 class ImageDownloader
 {
     /**
-     * Class CdnUpload Класс для загрузки на CDN
-     * @package Facade\Service
-     */
-
-    /**
      * @var string
      */
     private $path;
 
     /**
-     * CdnUpload constructor.
      * @param string $path
      */
     public function __construct(string $path)

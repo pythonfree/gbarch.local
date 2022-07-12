@@ -47,7 +47,7 @@ class UserCacheRepository implements UserRepositoryInterface
             return $this->repository->getById($id);
         }
 
-        echo 'Доставляем пользователя по id = ' . $id . ' из КЕША' . '<br>';
+        echo 'Доставляем пользователя по id = ' . $id . ' из КЕША' . PHP_EOL;
         return $fromCache;
     }
 
@@ -71,7 +71,7 @@ class UserCacheRepository implements UserRepositoryInterface
             return $this->repository->findByName($name);
         }
 
-        echo 'Доставляем пользователя по name = ' . $name . ' из КЕША' . '<br>';
+        echo 'Доставляем пользователя по name = ' . $name . ' из КЕША' . PHP_EOL;
         return $fromCache;
     }
 

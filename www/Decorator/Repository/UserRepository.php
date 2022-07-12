@@ -14,7 +14,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getById(int $id): User
     {
-        echo 'Доставляем пользователя по id = ' . $id . ' из БАЗЫ.' . '<br>';
+        echo 'Доставляем пользователя по id = ' . $id . ' из БАЗЫ.' . PHP_EOL;
 
         //Далее просто для примера, в настоящем проекте мы бы обращались к БД.
         if ($id === 1) {
@@ -32,7 +32,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function findByName(string $name): ?User
     {
-        echo 'Доставляем пользователя по name = ' . $name . ' из БАЗЫ' . '<br>';
+        echo 'Доставляем пользователя по name = ' . $name . ' из БАЗЫ' . PHP_EOL;
 
         //Далее просто для примера, в наст. проекте мы бы обращались к БД.
         if ($name === 'Павел') {

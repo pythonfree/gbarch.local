@@ -12,13 +12,8 @@ spl_autoload_register(function ($className){
     require_once __DIR__ . $className . '.php';
 });
 
-
-
 $userService = new UserService(new UserRepository());
 $user = $userService->findByName('Павел');
-var_dump($user);
-
-echo '==============================================<br>';
 
 $userCacheService = new UserService(
     new UserCacheRepository(       //UserCacheRepository - Это декоратор для UserRepository
@@ -28,5 +23,4 @@ $userCacheService = new UserService(
 );
 
 $user = $userCacheService->findByName('Павел');
-var_dump($user);
-//$userCacheService->findByName('Андрей');
+$userCacheService->findByName('Андрей');

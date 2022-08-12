@@ -10,6 +10,10 @@
     }
   ],
   "require": {
-    "tightenco/collect": "*"
+    "tightenco/collect": "*",
+    "sunra/php-simple-html-dom-parser": "*",
+    "nikic/php-parser": "*",
+    "paquettg/php-html-parser": "*",
+    "ext-mysqli": "*"
   }
 }

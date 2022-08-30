@@ -10,7 +10,7 @@ abstract class BaseBanner
      * используется для работы нашего класса.
      * @return string
      */
-    abstract public function prepareHTML(): string;
+    abstract protected function prepareHTML(): string;
 
     /**
      * Показываем баннер.

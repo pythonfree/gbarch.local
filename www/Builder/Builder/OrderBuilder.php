@@ -10,29 +10,19 @@ use Builder\Entity\User;
 
 class OrderBuilder implements OrderBuilderInterface
 {
-    /**
-     * @var ?Invoice
-     */
+    /** @var ?Invoice */
     private $invoice;
 
-    /**
-     * @var ?Payment
-     */
+    /** @var ?Payment */
     private $payment;
 
-    /**
-     * @var ?User
-     */
+    /** @var ?User */
     private $user;
 
-    /**
-     * @var ?string
-     */
+    /** @var ?string */
     private $status;
 
-    /**
-     * @return Invoice|null
-     */
+    /** @return Invoice|null */
     public function getInvoice(): ?Invoice
     {
         return $this->invoice;

@@ -20,7 +20,6 @@ class ImageBanner extends BaseBanner
         $this->src = $src;
     }
 
-
     /**
      * @return string
      */

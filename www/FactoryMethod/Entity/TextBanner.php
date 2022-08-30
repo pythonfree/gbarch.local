@@ -20,7 +20,6 @@ class TextBanner extends BaseBanner
         $this->text = $text;
     }
 
-
     /**
      * @return string
      */

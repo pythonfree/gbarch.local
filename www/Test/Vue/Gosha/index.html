@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap-5.2.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<script src="../vue.js"></script>
+
+
+
+<div id="app">
+    <span @click="title='hello))'" style="pointer-events: auto">Hello2</span>
+    <span @mouseenter="changeText">mouseenter</span>
+    <p>{{ title }}</p>
+    <p :class="styleCSS">Цвет: {{ styleCSS }}</p>
+    <input type="text" @input="styleCSS = $event.target.value">
+</div>
+
+<script src="main.js"></script>
+<script src="../bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
+</body>
+</html>

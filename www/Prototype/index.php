@@ -143,4 +143,4 @@ echo 'Пользователи равны: ' . ($order1->getUser() === $order2->
 echo 'Статусы равны: ' . ($order1->getStatus() === $order2->getStatus() ? 'true' : 'false') . PHP_EOL; // false - т.к.
 // мы попросили метод clone создавать новый объект в поле статуса
 echo 'Дата создания одна и таже: ' . ($order1->getCreatedAt() === $order2->getCreatedAt() ? 'true' : 'false') . PHP_EOL; // false - т.к.
-// мы попросили метод clone создавать новый объект в поле даты создания
+// мы побросили метод clone создавать новый объект в поле даты создания

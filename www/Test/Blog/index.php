@@ -10,8 +10,7 @@ use Twig\Loader\FilesystemLoader;
 
 require __DIR__ . '/../../../vendor/autoload.php';
 
-$loader = new FilesystemLoader('templates');
-$view = new Environment($loader);
+$view = new Environment(new FilesystemLoader('templates'));
 
 $app = AppFactory::create();
 $app->get('/Test/Blog/', function (Request $request, Response $response, $args) use ($view) {
@@ -22,6 +21,13 @@ $app->get('/Test/Blog/', function (Request $request, Response $response, $args) 
 $app->get('/Test/Blog/about', function (Request $request, Response $response, $args) use ($view) {
     $body = $view->render('about.twig', [
             'name' => 'Max'
+    ]);
+    $response->getBody()->write($body);
+    return $response;
+});
+$app->get('/Test/Blog/{url_key}', function (Request $request, Response $response, $args) use ($view) {
+    $body = $view->render('post.twig', [
+            'url_key' => $args['url_key']
     ]);
     $response->getBody()->write($body);
     return $response;

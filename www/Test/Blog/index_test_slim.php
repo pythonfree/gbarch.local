@@ -1,9 +1,27 @@
-<?php
+<?php //rename in index.php for test slim
 
 namespace Test\Blog;
 
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Factory\AppFactory;
+use Slim\Exception\HttpNotFoundException;
+
 require __DIR__ . '/../../../vendor/autoload.php';
 
+$app = AppFactory::create();
+
+$app->get('/Test/Blog/', function (Request $request, Response $response, $args) {
+    $response->getBody()->write("Hello world!");
+    return $response;
+});
+$app->get('/Test/Blog/about', function (Request $request, Response $response, $args) {
+    $response->getBody()->write("About page!");
+    return $response;
+});
+
+$app->run();
+die;
 ?>
 
 <!doctype html>

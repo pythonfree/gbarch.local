@@ -2,11 +2,10 @@
   "name": "vendor_name/www",
   "description": "description",
   "minimum-stability": "stable",
-  "license": "proprietary",
   "authors": [
     {
-      "name": "pseex",
-      "email": "email@example.com"
+      "name": "Evgeniy Shakhov",
+      "email": "evgeniyshahov@gmail.com"
     }
   ],
   "require": {

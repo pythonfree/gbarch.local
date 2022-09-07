@@ -7,8 +7,26 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use PDO;
+use Test\Blog\PostMapper;
 
 require __DIR__ . '/../../../vendor/autoload.php';
+
+$config = include 'config/database.php';
+$dsn = $config['dsn'];
+$userName = $config['username'];
+$password = $config['password'];
+
+try {
+    $connection = new PDO($dsn, $userName, $password);
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+} catch (\PDOException $e) {
+    echo 'Database error: ' . $e->getMessage();
+    die;
+}
+
+$postMapper = new PostMapper($connection);
 
 $view = new Environment(new FilesystemLoader('templates'));
 
@@ -25,9 +43,16 @@ $app->get('/Test/Blog/about', function (Request $request, Response $response, $a
     $response->getBody()->write($body);
     return $response;
 });
-$app->get('/Test/Blog/{url_key}', function (Request $request, Response $response, $args) use ($view) {
-    $body = $view->render('post.twig', [
-            'url_key' => $args['url_key']
+
+function getTwig($post): string
+{
+    return !empty($post) ? 'post.twig' : 'not-found.twig';
+}
+
+$app->get('/Test/Blog/{url_key}', function (Request $request, Response $response, $args) use ($view, $postMapper) {
+    $post = $postMapper->getByUrlKey((string) $args['url_key']);
+    $body = $view->render(getTwig($post), [
+        'post' => $post
     ]);
     $response->getBody()->write($body);
     return $response;

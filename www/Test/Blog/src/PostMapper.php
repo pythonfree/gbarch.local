@@ -2,6 +2,7 @@
 
 namespace Test\Blog;
 
+use Exception;
 use PDO;
 use stringEncode\Encode;
 
@@ -33,6 +34,21 @@ class PostMapper
         ]);
         $result = $statement->fetchAll();
         return array_shift($result);
+    }
+
+    /**
+     * @param string $direction
+     * @return array|null
+     * @throws Exception
+     */
+    public function getList(string $direction = 'DESC'): ?array
+    {
+        if (!in_array($direction, ['DESC', 'ASC'])) {
+            throw new \InvalidArgumentException("The direction - \"{$direction}\" is not supported.");
+        }
+        $statement = $this->connection->prepare('SELECT * FROM post ORDER BY published_date ' . $direction);
+        $statement->execute();
+        return $statement->fetchAll();
     }
 
 }

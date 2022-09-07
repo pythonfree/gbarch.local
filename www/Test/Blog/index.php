@@ -11,6 +11,7 @@ use PDO;
 use Test\Blog\PostMapper;
 
 require __DIR__ . '/../../../vendor/autoload.php';
+include_once __DIR__ . '/functions.php';
 
 $config = include 'config/database.php';
 $dsn = $config['dsn'];
@@ -31,8 +32,16 @@ $postMapper = new PostMapper($connection);
 $view = new Environment(new FilesystemLoader('templates'));
 
 $app = AppFactory::create();
-$app->get('/Test/Blog/', function (Request $request, Response $response, $args) use ($view) {
-    $body = $view->render('index.twig');
+$app->get('/Test/Blog/', function (Request $request, Response $response, $args) use ($view, $postMapper) {
+    try {
+        $posts = $postMapper->getList();
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+        die;
+    }
+    $body = $view->render('index.twig', [
+            'posts' => $posts
+    ]);
     $response->getBody()->write($body);
     return $response;
 });
@@ -44,14 +53,9 @@ $app->get('/Test/Blog/about', function (Request $request, Response $response, $a
     return $response;
 });
 
-function getTwig($post): string
-{
-    return !empty($post) ? 'post.twig' : 'not-found.twig';
-}
-
 $app->get('/Test/Blog/{url_key}', function (Request $request, Response $response, $args) use ($view, $postMapper) {
     $post = $postMapper->getByUrlKey((string) $args['url_key']);
-    $body = $view->render(getTwig($post), [
+    $body = $view->render(getPostTwigTemplate($post), [
         'post' => $post
     ]);
     $response->getBody()->write($body);

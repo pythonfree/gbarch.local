@@ -19,6 +19,7 @@
     "guzzlehttp/psr7": "^2",
     "laminas/laminas-diactoros": "*",
     "nyholm/psr7": "*",
-    "nyholm/psr7-server": "*"
+    "nyholm/psr7-server": "*",
+    "twig/twig": "*"
   }
 }

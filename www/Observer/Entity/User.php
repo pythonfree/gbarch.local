@@ -2,9 +2,11 @@
 
 namespace Observer\Entity;
 
+use SplObjectStorage;
 use SplObserver;
+use SplSubject;
 
-class User implements \SplSubject
+class User implements SplSubject
 {
     /**
      * @var string
@@ -12,7 +14,7 @@ class User implements \SplSubject
     private $name;
 
     /**
-     * @var \SplObjectStorage
+     * @var SplObjectStorage[]
      */
     private $observers;
 
@@ -22,7 +24,7 @@ class User implements \SplSubject
     public function __construct(string $name)
     {
         $this->name = $name;
-        $this->observers = new \SplObjectStorage();
+        $this->observers = new SplObjectStorage();
     }
 
     /**

@@ -3,8 +3,9 @@
 namespace Observer\Observer;
 
 use Observer\Entity\User;
+use SplObserver;
 
-class ChangeUserNameObserver implements \SplObserver
+class ChangeUserNameObserver implements SplObserver
 {
 
     /**

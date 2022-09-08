@@ -59,15 +59,20 @@ $app->get('/Test/Blog/about', function (Request $request, Response $response, $a
 $app->get('/Test/Blog/blog[/{page}]', function (Request $request, Response $response, $args) use ($view, $connection) {
     $page = isset($args['page']) ? (int)$args['page'] : 1;
     $limit = 2;
-    $latestPosts = new PostMapper($connection);
+    $postMapper = new PostMapper($connection);
     try {
-        $posts = $latestPosts->getList($page, $limit, 'DESC');
+        $posts = $postMapper->getList($page, $limit, 'DESC');
+        $totalCount = $postMapper->getTotalCount();
     } catch (\Exception $e) {
         echo $e->getMessage();
         die;
     }
     $body = $view->render('blog.twig', [
-        'posts' => $posts
+        'posts' => $posts,
+        'pagination' => [
+                'current' => $page,
+                'paging' => ceil($totalCount / $limit),
+        ]
     ]);
     $response->getBody()->write($body);
     return $response;

@@ -5,10 +5,10 @@ namespace Test\Blog;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
+use Test\Blog\Slim\TwigMiddleware;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use PDO;
-use Test\Blog\PostMapper;
 
 require __DIR__ . '/../../../vendor/autoload.php';
 include_once __DIR__ . '/functions.php';
@@ -30,6 +30,8 @@ try {
 $view = new Environment(new FilesystemLoader('templates'));
 
 $app = AppFactory::create();
+
+$app->add(new TwigMiddleware($view));
 
 $app->get('/Test/Blog/', function (Request $request, Response $response, $args) use ($view, $connection) {
     $latestsPost = new LatestsPost($connection);

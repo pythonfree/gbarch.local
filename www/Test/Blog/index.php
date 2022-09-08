@@ -27,14 +27,13 @@ try {
     die;
 }
 
-$postMapper = new PostMapper($connection);
-
 $view = new Environment(new FilesystemLoader('templates'));
 
 $app = AppFactory::create();
-$app->get('/Test/Blog/', function (Request $request, Response $response, $args) use ($view, $postMapper) {
+$app->get('/Test/Blog/', function (Request $request, Response $response, $args) use ($view, $connection) {
+    $latestsPost = new LatestsPost($connection);
     try {
-        $posts = $postMapper->getList();
+        $posts = $latestsPost->get(2);
     } catch (\Exception $e) {
         echo $e->getMessage();
         die;
@@ -53,8 +52,8 @@ $app->get('/Test/Blog/about', function (Request $request, Response $response, $a
     return $response;
 });
 
-$app->get('/Test/Blog/{url_key}', function (Request $request, Response $response, $args) use ($view, $postMapper) {
-    $post = $postMapper->getByUrlKey((string) $args['url_key']);
+$app->get('/Test/Blog/{url_key}', function (Request $request, Response $response, $args) use ($view, $connection) {
+    $post = (new PostMapper($connection))->getByUrlKey((string) $args['url_key']);
     $body = $view->render(getPostTwigTemplate($post), [
         'post' => $post
     ]);

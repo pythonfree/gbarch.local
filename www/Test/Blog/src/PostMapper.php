@@ -11,7 +11,7 @@ class PostMapper
     /**
      * @var PDO
      */
-    private $connection;
+    private PDO $connection;
 
     /**
      * @param PDO $connection

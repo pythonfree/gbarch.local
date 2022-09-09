@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Test\Blog\Helper\Twig as TwigHelper;
+use Test\Blog\Route\HomePage;
 use Test\Blog\Slim\TwigMiddleware;
 use Twig\Environment;
 
@@ -25,20 +26,7 @@ $view = $container->get(Environment::class);
 $app->add(new TwigMiddleware($view));
 $connection = $container->get(DataBase::class)->getConnection();
 
-$app->get('/Test/Blog/', function (Request $request, Response $response, $args) use ($view, $connection) {
-    $latestsPost = new LatestsPost($connection);
-    try {
-        $posts = $latestsPost->get(2);
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-        die;
-    }
-    $body = $view->render('index.twig', [
-            'posts' => $posts
-    ]);
-    $response->getBody()->write($body);
-    return $response;
-});
+$app->get('/Test/Blog/', HomePage::class . ':execute');
 
 $app->get('/Test/Blog/about', function (Request $request, Response $response, $args) use ($view) {
     $body = $view->render('about.twig', [

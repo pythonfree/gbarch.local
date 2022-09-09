@@ -2,21 +2,21 @@
 
 namespace Test\Blog;
 
-use PDO;
+use Test\Blog\DataBase;
 
 class LatestsPost
 {
     /**
-     * @var PDO
+     * @var DataBase
      */
-    private PDO $connection;
+    private DataBase $dataBase;
 
     /**
-     * @param PDO $connection
+     * @param DataBase $dataBase
      */
-    public function __construct(PDO $connection)
+    public function __construct(DataBase $dataBase)
     {
-        $this->connection = $connection;
+        $this->dataBase = $dataBase;
     }
 
     /**
@@ -25,7 +25,7 @@ class LatestsPost
      */
     public function get(int $limit): ?array
     {
-        $statement = $this->connection->prepare('SELECT * FROM post ORDER BY published_date LIMIT ' . $limit);
+        $statement = $this->dataBase->getConnection()->prepare('SELECT * FROM post ORDER BY published_date LIMIT ' . $limit);
         $statement->execute();
         return $statement->fetchAll();
     }

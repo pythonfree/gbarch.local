@@ -21,7 +21,8 @@
     "nyholm/psr7": "*",
     "nyholm/psr7-server": "*",
     "twig/twig": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "php-di/php-di": "*"
   },
   "autoload": {
     "psr-4": {

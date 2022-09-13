@@ -2,12 +2,14 @@
 
 
 use Test\Blog\DataBase;
+use Test\Blog\Twig\AssetExtension;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use function DI\autowire;
 use function Di\get;
 
 return [
+    'server.params' => $_SERVER,
     FilesystemLoader::class => autowire()
         ->constructorParameter('paths', 'templates'),
 
@@ -22,4 +24,7 @@ return [
         ->constructorParameter('username', getenv('DATABASE_USERNAME'))
         ->constructorParameter('passwd', getenv('DATABASE_PASSWORD'))
         ->constructorParameter('options', []),
+
+    AssetExtension::class => autowire()
+        ->constructorParameter('serverParams', get('server.params')),
 ];

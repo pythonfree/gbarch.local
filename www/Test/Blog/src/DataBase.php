@@ -14,14 +14,12 @@ class DataBase
     private PDO $connection;
 
     /**
-     * @param string|null $dsn
-     * @param string|null $username
-     * @param string|null $password
+     * @param PDO $connection
      */
-    public function __construct(string $dsn = null, string $username = null, string $password = null)
+    public function __construct(PDO $connection)
     {
         try {
-            $this->connection = new PDO($dsn, $username, $password);
+            $this->connection = $connection;
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {

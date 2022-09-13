@@ -13,7 +13,7 @@ class Form implements RenderableInterface
     /**
      * @var RenderableInterface[]
      */
-    private $elements;
+    private array $elements;
 
     /**
      * @return string

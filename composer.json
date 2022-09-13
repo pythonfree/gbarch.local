@@ -27,7 +27,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Test\\Blog\\": "www/Test/Blog/src/"
+      "Blog\\": "www/Blog/src/"
     }
   }
 }

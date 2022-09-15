@@ -20,7 +20,7 @@ class HomePage
     private Environment $view;
 
     /**
-     * @param LatestPosts $latestsPost
+     * @param LatestPosts $latestPosts
      * @param Environment $view
      */
     public function __construct(LatestPosts $latestPosts, Environment $view)

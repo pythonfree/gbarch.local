@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap-5.2.0-dist/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<div id="app">
+    <h1 v-if="view" v-html="message"></h1>
+    <h1 v-else>FALSE</h1>
+
+    <input type="text" v-model="message1">
+    <h1>{{message1}}</h1>
+    <input id="che" type="checkbox" v-model="checked">
+    <label for="che">{{checked}}</label>
+    <input id="che2" type="checkbox" checked>
+    <label for="che2">{{checked}}</label>
+<!--    <h1 v-show="view" v-html="message"></h1>-->
+<!--    <h1 v-html="message"></h1>-->
+<!--    <h1 v-text="message"></h1>-->
+<!--    <h2>{{message}}</h2>-->
+</div>
+
+
+
+
+
+
+<script src="bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
+<script src="vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

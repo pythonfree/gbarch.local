@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="bootstrap-5.2.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bootstrap-5.2.0-dist/css/bootstrap.min.css">
+    <style>
+        .large{
+            font-size: 50px;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body style="background-color: #9fcdff">
 
 
 <div id="app">
     <div class="container">
-        <h1>URL: <a v-bind:href="url" target="_blank">{{cleanUrl}}</a></h1>
-        <input type="text" class="form-control" v-model="url">
-        <button @click="cleanerUrl" class="btn btn-primary">Clean URL</button>
+        <h1>{{title}}</h1>
+        <button
+                v-bind:class="[sizeToggle ? 'large' : '', {'rounded': isRounded}]"
+                v-bind:style="styles"
+                v-bind:disabled="disabled"
+        >Start</button>
+        <ul>
+            <li>
+                <input type="checkbox" v-model="sizeToggle"><label for="">Увеличить шрифт</label>
+            </li>
+            <li>
+                <input type="checkbox" v-model="isRounded"><label for="">Округлить</label>
+            </li>
+            <li>
+                <input type="checkbox" v-model="disabled"><label for="">Disable</label>
+            </li>
+            <li><input type="text" v-model="fontColor"></li>
+            <li><input type="text" v-model="bgColor"></li>
+        </ul>
     </div>
 </div>
 
@@ -21,8 +42,8 @@
 
 
 
-<script src="bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
-<script src="vue.js"></script>
+<script src="../../bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
+<script src="../../vue.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

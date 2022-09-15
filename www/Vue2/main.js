@@ -1,20 +1,21 @@
 var app = new Vue({
     el: '#app',
     data: {
-        url: '',
-        cleanUrl: '',
-        count: 0,
+        title: 'Style',
+        isRounded: false,
+        sizeToggle: false,
+        disabled: false,
+        fontColor: '#ccc',
+        bgColor: 'yellow',
+    },
+    computed: {
+      styles: function () {
+          return {
+              color: this.fontColor,
+              background: this.bgColor,
+          }
+      }
     },
     methods: {
-        cleanerUrl: function () {
-            this.url = "https://ya.ru/"
-            this.cleanUrl = this.url.replace(/^https?:\/\//, '').replace(/\/$/, '')
-        },
-        countUp: function () {
-            this.count += 1
-        },
-        countDown: function () {
-            this.count -= 1
-        }
     }
 })

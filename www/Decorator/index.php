@@ -13,7 +13,7 @@ spl_autoload_register(function ($className){
 });
 
 $userService = new UserService(new UserRepository());
-$user = $userService->findByName('Павел');
+$userService->findByName('Павел');
 
 $userCacheService = new UserService(
     new UserCacheRepository(       //UserCacheRepository - Это декоратор для UserRepository
@@ -22,5 +22,5 @@ $userCacheService = new UserService(
     )
 );
 
-$user = $userCacheService->findByName('Павел');
+$userCacheService->findByName('Павел');
 $userCacheService->findByName('Андрей');

@@ -23,11 +23,13 @@
     "twig/twig": "*",
     "ext-pdo": "*",
     "php-di/php-di": "*",
-    "devcoder-xyz/php-dotenv": "^1.1"
+    "devcoder-xyz/php-dotenv": "^1.1",
+    "cboden/ratchet": "^0.4.4"
   },
   "autoload": {
     "psr-4": {
-      "Blog\\": "www/Blog/src/"
+      "Blog\\": "www/Blog/src/",
+      "Chat\\": "www/Chat/src/"
     }
   },
   "autoload-dev": {

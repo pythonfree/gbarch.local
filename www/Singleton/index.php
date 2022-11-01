@@ -4,7 +4,7 @@ namespace Singleton;
 
 class Singleton
 {
-    private static $instance;
+    private static $instance = null;
 
     /**
      * Закрываем конструктор

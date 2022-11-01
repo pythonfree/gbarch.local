@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../bootstrap-5.2.0-dist/css/bootstrap.min.css">
+    <style>
+        .large{
+            font-size: 50px;
+        }
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity .5s;
+        }
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0.2;
+        }
+
+    </style>
+</head>
+<body style="background-color: #9fcdff">
+
+
+<div id="demo">
+    <div class="container">
+        <button @click="show = !show" class="btn btn-success">Toggle</button>
+        <transition name="fade">
+            <p v-if="show">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A asperiores ea esse explicabo facilis ipsam iure labore maiores natus, nobis, optio placeat provident quaerat quis rem repudiandae similique, voluptatibus voluptatum!
+            </p>
+        </transition>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="../../bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
+<script src="../../vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

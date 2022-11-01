@@ -93,7 +93,7 @@ class News
     public static function getArticleById($id): ?array
     {
         $collection = collect(static::getNews());
-        return $collection->groupBy('id')->get($id)->all()[0];
+        return $collection->groupBy('id')->get($id)->first();
     }
 
     /**
@@ -108,5 +108,5 @@ class News
 }
 
 echo '<pre>';
-var_dump(News::getArticleById(1));
+var_dump(\Test\News::getArticleById(1));
 echo '</pre>';
